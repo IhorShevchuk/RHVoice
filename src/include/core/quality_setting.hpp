@@ -44,6 +44,12 @@ namespace RHVoice
       define("maximum",quality_max);
       define("100",quality_max);
     }
+      
+   quality_setting& operator=(quality_t val)
+   {
+      this->set_value(val);
+      return *this;
+   }
   };
 }
 #endif

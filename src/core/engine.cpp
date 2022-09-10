@@ -16,7 +16,7 @@
 #include "core/path.hpp"
 #include "core/config.hpp"
 #include "core/engine.hpp"
-#ifndef ANDROID
+#if !defined(ANDROID) && !defined(TARGET_OS_IPHONE) && !defined(TARGET_OS_MAC)
 #include "config.h"
 #endif
 

@@ -13,11 +13,11 @@
 		01BE5AB62839758B0086E9EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01BE5AB42839758B0086E9EF /* Main.storyboard */; };
 		01BE5AB82839758B0086E9EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01BE5AB72839758B0086E9EF /* Assets.xcassets */; };
 		01BE5ABB2839758B0086E9EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01BE5AB92839758B0086E9EF /* LaunchScreen.storyboard */; };
-		01BE5AC6283975D00086E9EF /* RHVoice.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01BE5AC5283975D00086E9EF /* RHVoice.xcframework */; };
-		01BE5AC8283975F10086E9EF /* RHVoiceData in Resources */ = {isa = PBXBuildFile; fileRef = 01BE5AC7283975F10086E9EF /* RHVoiceData */; };
+		01DF1DD6298BFB9100DAA100 /* RHVoice in Frameworks */ = {isa = PBXBuildFile; productRef = 01DF1DD5298BFB9100DAA100 /* RHVoice */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		019D7D4E29B08B9900B4094C /* RHVoice.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RHVoice.json; sourceTree = "<group>"; };
 		01BE5AAB2839758B0086E9EF /* iOSSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01BE5AAE2839758B0086E9EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01BE5AB02839758B0086E9EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,8 +26,7 @@
 		01BE5AB72839758B0086E9EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01BE5ABA2839758B0086E9EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01BE5ABC2839758B0086E9EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		01BE5AC5283975D00086E9EF /* RHVoice.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RHVoice.xcframework; path = ../../../RHVoice/build_output/RHVoice.xcframework; sourceTree = "<group>"; };
-		01BE5AC7283975F10086E9EF /* RHVoiceData */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RHVoiceData; path = ../../../RHVoice/build_output/RHVoiceData; sourceTree = "<group>"; };
+		01DF1DD3298BFAC800DAA100 /* RHVoice */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RHVoice; path = ../../../../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01BE5AC6283975D00086E9EF /* RHVoice.xcframework in Frameworks */,
+				01DF1DD6298BFB9100DAA100 /* RHVoice in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,9 +44,10 @@
 		01BE5AA22839758B0086E9EF = {
 			isa = PBXGroup;
 			children = (
-				01BE5AC4283975B80086E9EF /* RHVoice */,
+				01DF1DD2298BFAC800DAA100 /* Packages */,
 				01BE5AAD2839758B0086E9EF /* iOSSample */,
 				01BE5AAC2839758B0086E9EF /* Products */,
+				01DF1DD4298BFB9100DAA100 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +65,7 @@
 				01BE5AAE2839758B0086E9EF /* AppDelegate.swift */,
 				01BE5AB02839758B0086E9EF /* SceneDelegate.swift */,
 				01BE5AB22839758B0086E9EF /* ViewController.swift */,
+				019D7D4E29B08B9900B4094C /* RHVoice.json */,
 				01BE5AB42839758B0086E9EF /* Main.storyboard */,
 				01BE5AB72839758B0086E9EF /* Assets.xcassets */,
 				01BE5AB92839758B0086E9EF /* LaunchScreen.storyboard */,
@@ -73,13 +74,19 @@
 			path = iOSSample;
 			sourceTree = "<group>";
 		};
-		01BE5AC4283975B80086E9EF /* RHVoice */ = {
+		01DF1DD2298BFAC800DAA100 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				01BE5AC7283975F10086E9EF /* RHVoiceData */,
-				01BE5AC5283975D00086E9EF /* RHVoice.xcframework */,
+				01DF1DD3298BFAC800DAA100 /* RHVoice */,
 			);
-			name = RHVoice;
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		01DF1DD4298BFB9100DAA100 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,8 +103,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				019D7D5029B08CC300B4094C /* PBXTargetDependency */,
 			);
 			name = iOSSample;
+			packageProductDependencies = (
+				01DF1DD5298BFB9100DAA100 /* RHVoice */,
+			);
 			productName = iOSSample;
 			productReference = 01BE5AAB2839758B0086E9EF /* iOSSample.app */;
 			productType = "com.apple.product-type.application";
@@ -141,7 +152,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				01BE5ABB2839758B0086E9EF /* LaunchScreen.storyboard in Resources */,
-				01BE5AC8283975F10086E9EF /* RHVoiceData in Resources */,
 				01BE5AB82839758B0086E9EF /* Assets.xcassets in Resources */,
 				01BE5AB62839758B0086E9EF /* Main.storyboard in Resources */,
 			);
@@ -161,6 +171,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		019D7D5029B08CC300B4094C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 019D7D4F29B08CC300B4094C /* PackDataPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		01BE5AB42839758B0086E9EF /* Main.storyboard */ = {
@@ -380,6 +397,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		019D7D4F29B08CC300B4094C /* PackDataPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "plugin:PackDataPlugin";
+		};
+		01DF1DD5298BFB9100DAA100 /* RHVoice */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RHVoice;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 01BE5AA32839758B0086E9EF /* Project object */;
 }

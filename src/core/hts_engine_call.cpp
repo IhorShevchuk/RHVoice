@@ -19,7 +19,9 @@
 #include <queue>
 #include <cmath>
 #ifndef ENABLE_SONIC
+#if !defined(TARGET_OS_IPHONE) && !defined(TARGET_OS_MAC)
 #include "core/config.h"
+#endif
 #endif
 #if ENABLE_SONIC
 #include "sonic.h"

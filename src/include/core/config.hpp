@@ -16,7 +16,7 @@
 #ifndef RHVOICE_CONFIG_HPP
 #define RHVOICE_CONFIG_HPP
 
-#ifndef ANDROID
+#if !defined(ANDROID) && !defined(TARGET_OS_IPHONE) && !defined(TARGET_OS_MAC)
 #include "config.h"
 #endif
 #include <string>

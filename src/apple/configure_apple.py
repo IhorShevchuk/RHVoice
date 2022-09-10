@@ -94,9 +94,19 @@ def configure(env):
             ).split()
         )
     
-    env.Prepend(
-        CPPPATH=[
-            env[sdk_var]+"/usr/include",
-            env[sdk_var]+"/System/Library/Frameworks/AudioUnit.framework/Headers",
-        ]
-    )
+    
+    if env["enable_pkg"]:
+        env.Prepend(
+            CPPPATH=[
+                     env[sdk_var]+"/usr/include",
+                     env[sdk_var]+"/System/Library/Frameworks/AudioUnit.framework/Headers",
+                     os.getcwd()+"/build/darwin_libcurl/include",
+                    ]
+            )
+    else:
+        env.Prepend(
+            CPPPATH=[
+                     env[sdk_var]+"/usr/include",
+                     env[sdk_var]+"/System/Library/Frameworks/AudioUnit.framework/Headers",
+                    ]
+            )

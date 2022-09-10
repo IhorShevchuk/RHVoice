@@ -1,4 +1,4 @@
-if [[ $3 ]]; then
+if [[ $3 == "true" ]]; then
     echo "Clearing build folder."
     rm -rfv build/*
 fi
@@ -8,14 +8,20 @@ IFS=',' read -r -a VOICES <<< "$2"
 LANGUAGES="$1"
 echo "Building for LANGUAGES=$LANGUAGES and VOICES=$2"
 
-scons enable_shared=no languages=$LANGUAGES audio_libs=none platform=ios   arch=arm64  simulator=False 
-scons enable_shared=no languages=$LANGUAGES audio_libs=none platform=ios   arch=arm64  simulator=True 
-scons enable_shared=no languages=$LANGUAGES audio_libs=none platform=ios   arch=x86_64 simulator=True 
-scons enable_shared=no languages=$LANGUAGES audio_libs=none platform=macos arch=arm64 
-scons enable_shared=no languages=$LANGUAGES audio_libs=none platform=macos arch=x86_64
+BUILD_FOLDER=build
+
+mkdir $BUILD_FOLDER
+
+SCHEME=release
+
+scons enable_shared=no languages=$LANGUAGES audio_libs=none scheme=$SCHEME platform=ios   arch=arm64  simulator=False
+scons enable_shared=no languages=$LANGUAGES audio_libs=none scheme=$SCHEME platform=ios   arch=arm64  simulator=True
+scons enable_shared=no languages=$LANGUAGES audio_libs=none scheme=$SCHEME platform=ios   arch=x86_64 simulator=True
+scons enable_shared=no languages=$LANGUAGES audio_libs=none scheme=$SCHEME platform=macos arch=arm64
+scons enable_shared=no languages=$LANGUAGES audio_libs=none scheme=$SCHEME platform=macos arch=x86_64
 
 echo "Building complete."
-BUILD_FOLDER=build
+
 PRODUCT_NAME=RHVoice
 ARTICFACT_NAME="${PRODUCT_NAME}Core"
 
@@ -41,6 +47,7 @@ function syncHeadersToFrom()
 syncHeadersToFrom $HEADERS_FOLDER ./src/include/
 syncHeadersToFrom $HEADERS_FOLDER ./src/third-party/rapidxml/
 syncHeadersToFrom $HEADERS_FOLDER ./src/third-party/utf8/
+syncHeadersToFrom $HEADERS_FOLDER ./external/libs/boost/include/
 
 echo "Copping headers complete."
 
@@ -117,5 +124,5 @@ done
 
 echo "Copping data complete."
 
-echo "Building is completed. Resulst can be found here:\n$IOS_OUTPUT_FOLDER"
+echo "Building is completed. Resulst can be found here:\n$APPLE_OUTPUT_FOLDER"
 

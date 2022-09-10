@@ -6,8 +6,7 @@ Main code is located in [ViewController.swift](iOSSample/ViewController.swift) f
 
 ## Build & Run Instruction
 
-1. Run one of the variations of `create_xcframework.sh` as described on build instruction [page](/doc/en/Compiling-on-macOS.md)
-2. Open `iOSSample.xcodeproj`
-3. Select destination
-4. Fix signing issues if needed
-5. Run
+1. Open `iOSSample.xcodeproj`
+2. Select destination
+3. Fix signing issues if needed
+4. Run

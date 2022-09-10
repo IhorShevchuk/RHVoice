@@ -14,18 +14,9 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let initParams = RHVoiceBridgeParams.default()
-        if let dataPath = Bundle.main.path(forResource: "RHVoiceData", ofType: nil) {
-            initParams.dataPath = dataPath
-        }
-        RHVoiceBridge.sharedInstance().params = initParams
         
         synthesizer = RHSpeechSynthesizer()
-        let voice = RHSpeechSynthesisVoice.speechVoices().first { voice in
-            return voice.language == "US" && voice.gender == RHSpeechSynthesisVoiceGenderFemale
-        }
-        
+        let voice = RHSpeechSynthesisVoice.speechVoices().first
         let utterance = RHSpeechUtterance(text: "Sample Text")
         if let voice = voice {
             utterance.voice = voice
@@ -38,7 +29,5 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-
 }
 

@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01B437C329ABC59E001AE79B /* RHVoice in Frameworks */ = {isa = PBXBuildFile; productRef = 01B437C229ABC59E001AE79B /* RHVoice */; };
 		01BE5AD6283978510086E9EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BE5AD5283978510086E9EF /* AppDelegate.swift */; };
 		01BE5AD8283978510086E9EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BE5AD7283978510086E9EF /* ViewController.swift */; };
 		01BE5ADA283978520086E9EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01BE5AD9283978520086E9EF /* Assets.xcassets */; };
 		01BE5ADD283978520086E9EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01BE5ADB283978520086E9EF /* Main.storyboard */; };
-		01BE5AE8283978BB0086E9EF /* RHVoiceData in Resources */ = {isa = PBXBuildFile; fileRef = 01BE5AE7283978BB0086E9EF /* RHVoiceData */; };
-		01BE5AE9283978E20086E9EF /* RHVoice.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01BE5AE5283978AF0086E9EF /* RHVoice.xcframework */; };
-		01BE5AEA283978E20086E9EF /* RHVoice.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 01BE5AE5283978AF0086E9EF /* RHVoice.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +21,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				01BE5AEA283978E20086E9EF /* RHVoice.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,14 +28,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		019D7D5329B0906400B4094C /* RHVoice.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RHVoice.json; sourceTree = "<group>"; };
 		01BE5AD2283978510086E9EF /* macOSSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macOSSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01BE5AD5283978510086E9EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01BE5AD7283978510086E9EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		01BE5AD9283978520086E9EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01BE5ADC283978520086E9EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		01BE5ADE283978520086E9EF /* macOSSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOSSample.entitlements; sourceTree = "<group>"; };
-		01BE5AE5283978AF0086E9EF /* RHVoice.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RHVoice.xcframework; path = ../../../RHVoice/build_output/RHVoice.xcframework; sourceTree = "<group>"; };
-		01BE5AE7283978BB0086E9EF /* RHVoiceData */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RHVoiceData; path = ../../../RHVoice/build_output/RHVoiceData; sourceTree = "<group>"; };
+		01CDEDAF299D6057001D8662 /* RHVoice */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RHVoice; path = ../../../../..; sourceTree = "<group>"; };
+		01CDEDB3299D61ED001D8662 /* libapple_nghttp2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libapple_nghttp2.tbd; path = usr/lib/libapple_nghttp2.tbd; sourceTree = SDKROOT; };
+		01CDEDB4299D653A001D8662 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01BE5AE9283978E20086E9EF /* RHVoice.xcframework in Frameworks */,
+				01B437C329ABC59E001AE79B /* RHVoice in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,9 +55,10 @@
 		01BE5AC9283978510086E9EF = {
 			isa = PBXGroup;
 			children = (
-				01BE5AE42839789F0086E9EF /* RHVoice */,
+				01CDEDAE299D6057001D8662 /* Packages */,
 				01BE5AD4283978510086E9EF /* macOSSample */,
 				01BE5AD3283978510086E9EF /* Products */,
+				01CDEDB0299D611B001D8662 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +75,7 @@
 			children = (
 				01BE5AD5283978510086E9EF /* AppDelegate.swift */,
 				01BE5AD7283978510086E9EF /* ViewController.swift */,
+				019D7D5329B0906400B4094C /* RHVoice.json */,
 				01BE5AD9283978520086E9EF /* Assets.xcassets */,
 				01BE5ADB283978520086E9EF /* Main.storyboard */,
 				01BE5ADE283978520086E9EF /* macOSSample.entitlements */,
@@ -82,13 +83,21 @@
 			path = macOSSample;
 			sourceTree = "<group>";
 		};
-		01BE5AE42839789F0086E9EF /* RHVoice */ = {
+		01CDEDAE299D6057001D8662 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				01BE5AE7283978BB0086E9EF /* RHVoiceData */,
-				01BE5AE5283978AF0086E9EF /* RHVoice.xcframework */,
+				01CDEDAF299D6057001D8662 /* RHVoice */,
 			);
-			name = RHVoice;
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		01CDEDB0299D611B001D8662 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01CDEDB4299D653A001D8662 /* libcurl.tbd */,
+				01CDEDB3299D61ED001D8662 /* libapple_nghttp2.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,8 +115,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				019D7D5529B0909600B4094C /* PBXTargetDependency */,
 			);
 			name = macOSSample;
+			packageProductDependencies = (
+				01B437C229ABC59E001AE79B /* RHVoice */,
+			);
 			productName = macOSSample;
 			productReference = 01BE5AD2283978510086E9EF /* macOSSample.app */;
 			productType = "com.apple.product-type.application";
@@ -152,7 +165,6 @@
 			files = (
 				01BE5ADA283978520086E9EF /* Assets.xcassets in Resources */,
 				01BE5ADD283978520086E9EF /* Main.storyboard in Resources */,
-				01BE5AE8283978BB0086E9EF /* RHVoiceData in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +181,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		019D7D5529B0909600B4094C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 019D7D5429B0909600B4094C /* PackDataPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		01BE5ADB283978520086E9EF /* Main.storyboard */ = {
@@ -371,6 +390,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		019D7D5429B0909600B4094C /* PackDataPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "plugin:PackDataPlugin";
+		};
+		01B437C229ABC59E001AE79B /* RHVoice */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RHVoice;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 01BE5ACA283978510086E9EF /* Project object */;
 }

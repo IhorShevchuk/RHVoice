@@ -1,4 +1,3 @@
-# Compiling universal xcframework
 
 ## System requirements
 
@@ -9,10 +8,7 @@
 
 To compile RHVoice the following programs must be installed on your system:
 
-* [Xcode](https://developer.apple.com/xcode/)
-* [Pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
-* [SCons](https://www.scons.org)
-
+* [Xcode](https://developer.apple.com/xcode/) version 14 or newer.
 
 ## Get sources
 
@@ -29,49 +25,43 @@ To compile RHVoice the following programs must be installed on your system:
 
 ## Compilation
 
-Open next folder in repository:
-
 ```bash
-cd src/apple/RHVoice
+swift build
 ```
 
-And then run create_xcframework.sh by executing command:
+## Swift Package 
 
-```bash
-./RHVoice/BuildScripts/Scripts/create_xcframework.sh
-```
-
-You can specify languages and voices that you want to be included into framework by adding next parameters
-
-```bash
-./RHVoice/BuildScripts/Scripts/create_xcframework.sh english Alan,Lyubov
-```
-
-Also to save some space on disk you can place data into separate folder passing additional parameter
-
-```bash
-./RHVoice/BuildScripts/Scripts/create_xcframework.sh english Alan,Lyubov true
-```
-However you would need to include it to bundle of your app separately and specify that path in code:
+Add Swift Package as dependency
 ```swift
-let initParams = RHVoiceBridgeParams.default()
-if let dataPath = Bundle.main.path(forResource: "RHVoiceData", ofType: nil) {
-    initParams.dataPath = dataPath
-}
-RHVoiceBridge.sharedInstance().params = initParams
+dependencies: [
+    .package(url: "https://github.com/RHVoice/RHVoice.git")
+]
 ```
 
 ## Usage
 
-### Add generated `RHVoice.xcframework` to your project
 
-Path to the framework will be printed in Terminal:
-```bash
-xcframework successfully written out to: {path_to_repository}/src/ios/RHVoice/RHVoice.xcframework
+### Add `RHVoice.json`
+
+It is needed to have `RHVoice.json` added to your Xcode project so that RHVoice knows which voices and languages to embed in bundle to be used.
+Sample of `RHVoice.json`:
+```json
+{
+    "languages":[
+        "English"
+    ],
+    "voices":[
+        "alan"
+    ]
+}
+
 ```
-Just copy to your project or zip and upload to your third party storage.
 
-Add `RHVoiceData` to you project as folder reference if it is decided to keep it outside of `RHVoice.xcframework`
+### Add `PackDataPlugin` to be `Build Phases`
+
+In order to automatically copy voices and languages to bundle of your application you need to add `PackDataPlugin` to `Run Build Tool Plug-ins` build phase of your app. It will "build" `RHVoice.json` and as the result you will have `RHVoiceData` folder with voices and languages data embeded to bundle of your application.
+
+### Import RHVoice
 
 ```swift
 import RHVoice
@@ -83,15 +73,16 @@ Create `RHSpeechSynthesizer` instance
 ```swift
 let synthesizer = RHSpeechSynthesizer()
 ```
-It is needed to retain `synthesizer` until "speaking" is finished
+It is needed to retain `synthesizer` while it is "speaking"
 
 ### Select needed voice
 
 ```swift
 let voice = RHSpeechSynthesisVoice.speechVoices().first { voice in
-    return voice.language == "US" && voice.gender == RHSpeechSynthesisVoiceGenderMale
+    return voice.language.code == "us" && voice.gender == RHSpeechSynthesisVoiceGenderMale
 }
 ```
+
 ### `RHSpeechUtterance` 
 Create `RHSpeechUtterance` with required text to speak assign voice and let it speek using `synthesizer`
 ```swift

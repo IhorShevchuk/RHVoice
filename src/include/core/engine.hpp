@@ -27,7 +27,9 @@
 #include "quality_setting.hpp"
 #include "event_logger.hpp"
 #ifndef ENABLE_PKG
+#if !defined(TARGET_OS_IPHONE) && !defined(TARGET_OS_MAC)
 #include "config.h"
+#endif
 #endif
 #if ENABLE_PKG
 #include "package_client.hpp"
