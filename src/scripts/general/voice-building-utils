@@ -36,6 +36,8 @@ from scipy.signal import firwin,lfilter,kaiserord
 from scipy.io import wavfile
 import pathlib
 
+import pyworld
+
 version_pattern=re.compile(r"(?m)^\s*\$ver\s*=\s*'(\d+)'\s*;\s*$")
 scriptdir=os.path.abspath(os.path.dirname(__file__))
 RHVoice_bindir=os.path.normpath(os.path.join(scriptdir,"..","..","..","local","bin"))
@@ -176,7 +178,36 @@ class recordings_importer(task):
 		subparser=subparsers.add_parser("import-recordings")
 		subparser.set_defaults(func=self)
 
+	def get_file_list_from_ssml(self):
+		ssml_path=self.settings["text"]
+		if not os.path.exists(ssml_path):
+			return None
+		print("Checking ids in ssml")
+		wavedir=self.settings["wavedir"]
+		doc=xml.parse(ssml_path)
+		res=[]
+		i=0
+		for e in doc.iterfind("s"):
+			id=e.get("{http://www.w3.org/XML/1998/namespace}id", None)
+			if not id:
+				if res:
+					print("No xml:id for sentence:", e.text)
+					sys.exit()
+				return None
+			wav_path=os.path.abspath(os.path.join(wavedir, id+".wav"))
+			if not os.path.exists(wav_path):
+				print(wav_path, "not found")
+				sys.exit()
+			i+=1
+			out_name="{}_{}_{:04}".format(dataset, self.settings["speaker"], i)
+			print(id, "-> ", out_name)
+			res.append((wav_path, id, out_name))
+		return res
+
 	def get_file_list(self):
+		files=self.get_file_list_from_ssml()
+		if files:
+			return files
 		regex=re.compile(r"([^0-9]*)([0-9]+)[^0-9]?.*\.wav")
 		wavedir=self.settings["wavedir"]
 		files=[]
@@ -776,6 +807,16 @@ class f0_extracter(task):
 		os.remove(f0_path)
 		return f0s
 
+	def extract_with_world(self,raw_path,method,min_f0,max_f0):
+		assert(method in ["world_dio","world_harvest"])
+		samples=numpy.fromfile(raw_path,numpy.int32).astype(float)
+		samples/=(2**31)
+		if method.endswith("_dio"):
+			f0s, times = pyworld.dio(samples, self.settings["sample_rate"], min_f0, max_f0)
+		else:
+			f0s, times = pyworld.harvest(samples, self.settings["sample_rate"], min_f0, max_f0)
+		return f0s.tolist()
+
 	def or_values(self, values):
 		r=values[0]
 		for v in values[1:]:
@@ -793,6 +834,8 @@ class f0_extracter(task):
 			return self.extract_with_praat(raw_path,method,min_f0,max_f0)
 		elif method=="reaper":
 			return self.extract_with_reaper(raw_path,min_f0,max_f0)
+		elif method.startswith("world_"):
+			return self.extract_with_world(raw_path,method,min_f0,max_f0)
 		else:
 			return self.extract_with_sptk(raw_path,method,min_f0,max_f0)
 
@@ -1274,13 +1317,15 @@ class lpf_maker(task):
 		ns=5
 		nf=6
 		nt=31
-		nyq=float(self.settings["sample_rate"])/2
 		counts=nf*numpy.ones(ns,dtype=numpy.int32)
 		vars=numpy.zeros(nt,dtype=numpy.float32)
 		filters=numpy.zeros((nf,nt),dtype=numpy.float32)
 		for j in range(nf):
 			cf=(j+1)*1000
-			filters[j]=firwin(nt,cf,window="hanning",nyq=nyq)
+			try:
+				filters[j]=firwin(nt,cf,window="hanning",fs=self.settings["sample_rate"])
+			except:
+				filters[j]=firwin(nt,cf,window="hann",fs=self.settings["sample_rate"])
 		with open(os.path.join(self.outdir,"lpf.pdf"),"wb") as fp:
 			counts.tofile(fp)
 			for i in range(ns):
@@ -1598,10 +1643,10 @@ class bap_extractor(task):
 		if n%2==0:
 			n+=1
 		self.filters=numpy.zeros((num_bands,n))
-		self.filters[0]=firwin(n,freqs[0],nyq=self.nyq,window=b,scale=False)
-		self.filters[-1]=firwin(n,freqs[-1],nyq=self.nyq,window=b,pass_zero=False,scale=False)
+		self.filters[0]=firwin(n,freqs[0],fs=self.settings["sample_rate"],window=b,scale=False)
+		self.filters[-1]=firwin(n,freqs[-1],fs=self.settings["sample_rate"],window=b,pass_zero=False,scale=False)
 		for i in range(1,num_bands-1):
-			self.filters[i]=firwin(n,(freqs[i-1],freqs[i]),nyq=self.nyq,window=b,pass_zero=False,scale=False)
+			self.filters[i]=firwin(n,(freqs[i-1],freqs[i]),fs=self.settings["sample_rate"],window=b,pass_zero=False,scale=False)
 		with open(os.path.join("data","bpf.txt"),"w") as fp:
 			numpy.array(self.filters.shape).tofile(fp,sep="\n")
 			fp.write("\n")
@@ -1660,7 +1705,7 @@ class mgc_extractor(task):
 		subparser.set_defaults(func=self)
 
 	def process(self,name):
-		import pyworld
+
 		print("Processing {}".format(name))
 		sample_rate=self.settings["sample_rate"]
 		speech=self.load_speech(name)
@@ -1673,7 +1718,7 @@ class mgc_extractor(task):
 		mf0=numpy.median(f0s[f0s!=0])
 		f0s[f0s==0]=mf0
 		times=numpy.arange(len(f0s))*0.005
-		sp=pyworld.cheaptrick(speech, f0s, times, sample_rate)
+		sp=pyworld.cheaptrick(speech, f0s, times, sample_rate,f0_floor=self.settings["lower_f0"])
 		fft_len=(sp.shape[1]-1)*2
 		sp=numpy.sqrt(sp)*32768.0
 		sp.astype(numpy.float32).tofile("tmp.sp")

@@ -277,3 +277,24 @@
 [submodule "data/voices/pavel"]
 	path = data/voices/pavel
 	url = https://github.com/RHVoice/pavel-rus.git
+[submodule "data/voices/vitaliy-ng"]
+	path = data/voices/vitaliy-ng
+	url = https://github.com/rhvoice/vitaliy-ng-rus
+[submodule "data/voices/umka"]
+	path = data/voices/umka
+	url = https://github.com/rhvoice/umka-rus
+[submodule "data/voices/timofey"]
+	path = data/voices/timofey
+	url = https://github.com/rhvoice/timofey-rus
+[submodule "data/voices/michal"]
+	path = data/voices/michal
+	url = https://github.com/RHVoice/michal-pol.git
+[submodule "data/voices/alicja"]
+	path = data/voices/alicja
+	url = https://github.com/RHVoice/alicja-pol.git
+[submodule "data/voices/cezary"]
+	path = data/voices/cezary
+	url = https://github.com/RHVoice/cezary-pol.git
+[submodule "data/voices/vsevolod"]
+	path = data/voices/vsevolod
+	url = https://github.com/RHVoice/vsevolod-rus.git
